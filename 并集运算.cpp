@@ -22,7 +22,7 @@ void InsertList(LinkList h, int pos, int item) {
 		p = p->next;
 		i++;
 	}
-	if (!p || i>pos - 1)//判断插入位置的合法性 
+	if (!p)//判断插入位置的合法性 
 	{
 		printf("位置不合法\n");
 		system("pause");
@@ -66,16 +66,17 @@ void unionSet(LinkList h, LinkList m, LinkList n) {
 			{
 				InsertList(s, i, p->data);
 				q = n->next;
+				p = p->next;
 				i++;
 				break;
 			}
 			else
 				q = q->next;
-			if (!q) {
+			if (q->next==NULL) {
 				q = n->next;
 			}
 		}
-		p = p->next;
+		
 	}
 	Print(s);
 }
