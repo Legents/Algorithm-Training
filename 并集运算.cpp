@@ -56,29 +56,29 @@ void Print(LinkList h) {
 }
 void unionSet(LinkList h, LinkList m, LinkList n) {
 	LinkList p, q, s, r;
-	int i = 1;
+	int i = 1,num;
 	p =m->next;
 	q = n->next;
 	s = h;
 	while (p) {
 		while (q) {
-			if (p->data == q->data)
+			if (p->data == q->data)//比较p和q的数据域，如果相等则将它插入到并集s中
 			{
-				InsertList(s, i, p->data);
-				q = n->next;
-				p = p->next;
-				i++;
+				num = p->data;
+				InsertList(s, i, num);
+				q = n->next;//插入结束之后重置q使之指向n的第一个元素，便于下一循环的比较
+				i++;//i表示下一个并集元素要插入的位置，每次插入一个之后位置加一
 				break;
 			}
 			else
-				q = q->next;
+				q = q->next;//如果当前元素不相等 则与下一个元素比较
 			if (q->next==NULL) {
 				q = n->next;
+				break;
 			}
 		}
-		
+		p = p->next;
 	}
-	Print(s);
 }
 int main() {
 	LinkList h,m,n;
@@ -98,5 +98,4 @@ int main() {
 	Print(h);
 	system("pause");
 	return 0;
-
 }
