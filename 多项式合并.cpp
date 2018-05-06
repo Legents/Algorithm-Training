@@ -27,7 +27,7 @@ void InsertList(LinkList h, int a1, int a2)//将输入的系数插入到当前链表中
 		s->next = p->next;
 		p->next = s;
 }
-/*LinkList InsertSort(LinkList h) {
+LinkList InsertSort(LinkList h) {
 	if (h == NULL || h->next == NULL) {
 		return h;
 	}
@@ -69,7 +69,7 @@ void InsertList(LinkList h, int a1, int a2)//将输入的系数插入到当前链表中
 		}
 	}
 	return h;
-}*/
+}
 void Print(LinkList h) {
 	LinkList p = h->next;
 	while (p) {
