@@ -27,7 +27,7 @@ void InsertList(LinkList h, int a1, int a2)//将输入的系数插入到当前链表中
 		s->next = p->next;
 		p->next = s;
 }
-LinkList InsertSort(LinkList h) {
+/*LinkList InsertSort(LinkList h) {
 	if (h == NULL || h->next == NULL) {
 		return h;
 	}
@@ -69,6 +69,23 @@ LinkList InsertSort(LinkList h) {
 		}
 	}
 	return h;
+}*/
+void Add(LinkList h) {
+	LinkList p = h->next;
+	while (p->next) {
+		LinkList q = p->next;
+		while (q->next) {
+			if (p->a2 == q->a2) {
+				p->a2 += q->a2;
+				LinkList s = (LinkList)malloc(sizeof(Node));
+				s = q;
+				q = q->next;
+				free(s);
+			}
+			q = q->next;
+		}
+		p = p->next;
+	}
 }
 void Print(LinkList h) {
 	LinkList p = h->next;
@@ -85,14 +102,13 @@ int main() {
 	printf("分别输入每一项的系数和幂数，以0，0结束：\n");
 	do {
 		scanf("%d %d", &a1, &a2);
-		InsertList(h, a1, a2);
+		if(a1 != 0 || a2 != 0)
+			InsertList(h, a1, a2);
 	}while (a1 != 0 || a2 != 0);
 	Print(h);
-	LinkList s;
-	s = InitList();
-	s= InsertSort(h);
-	Print(s);
+	Add(h);
 	printf("合并后的多项式为：\n");
+	Print(h);
 	system("pause");
 	return 0;
 }
