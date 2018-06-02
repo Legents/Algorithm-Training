@@ -14,19 +14,38 @@ typedef struct {//邻接表
 	vexNode list[20];//顶点表
 	int e, v;//边，顶点
 }VGraph, *Adjlist;
+int compare(Adjlist G, int m,int n) {//用来判断此边是否已经存在
+	PArcNode p = G->list[m].h;
+	while (p) {
+		if (p->adjvex == n)
+			return 1;//若存在 则返回1
+		p = p->next;
+	}
+	return 0;
+}
 Adjlist Creat_G() {
 	int m,n,i;
 	Adjlist G=(Adjlist)malloc(sizeof(VGraph));
 	printf("请输入顶点数目和边的数目：\n");
 	scanf("%d%d", &G->v,&G->e);
 	printf("请分别输入每个顶点的值：\n");
-	for (i = 0; i < G->v; i++) {//顶点表的初始化
-		scanf("%d",&G->list[i].data);
+	for (i = 0; i < G->v; i++) {//顶点表的初始化,顶点的值默认设置为序号的值
+		G->list[i].data=i;
 		G->list[i].h = NULL;
 	}
 	printf("请输入边（以空格隔开）：\n");
 	for (i = 0; i < G->e; i++) {
-		scanf("%d%d", &m, &n);
+		do {
+			scanf("%d%d", &m, &n);
+			if (m >= G->v || n >= G->v || m < 0 || n < 0) {//判断所输入的边是否在所给顶点范围之内
+				printf("超出范围，请重新输入：\n");
+			}
+			else {
+				if (compare(G, m, n)) {//判断输入的边是否已经存在
+					printf("边已存在，请重新输入：\n");
+				}
+			}
+		} while (m >= G->v || n >= G->v || m < 0 || n < 0 || compare(G, m, n));
 		PArcNode p = (PArcNode)malloc(sizeof(ArcNode));
 		p->adjvex = n;
 		p->next = G->list[m].h;
@@ -52,7 +71,7 @@ void DFS(Adjlist G,int visited[]) {
 			DFS_L(G, i,visited);
 	}
 }
-int Front_Node(Adjlist G, int i) {
+int Front_Node(Adjlist G, int i) {//获取i的前一个节点
 	if (i != -1) {
 		PArcNode p = G->list[i].h;
 		if (p != NULL)
@@ -61,7 +80,7 @@ int Front_Node(Adjlist G, int i) {
 	else
 		return -1;
 }
-int Next_Node(Adjlist G, int i, int j) {
+int Next_Node(Adjlist G, int i, int j) {//获取i的后一个节点
 	if (i!= -1) {
 		PArcNode p = G->list[i].h;
 		while (p != NULL && p->adjvex != j)
