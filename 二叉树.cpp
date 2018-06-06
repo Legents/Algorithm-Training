@@ -44,14 +44,17 @@ void PostOrder(BiTreeLink q) {//后序遍历
 	}
 }
 int main() {
-	int datas[21], i;
-	for (i = 0; i <=20; i++)
+	int datas[15], i;
+	for (i = 0; i <=14; i++)
 		datas[i] = i;
-	BiTreeLink r = CreatBiTree(datas,1, 21);
+	BiTreeLink r = CreatBiTree(datas,1, 15);
+	printf("先序：\n");
 	PreOrder(r);
 	printf("\n");
+	printf("中序：\n");
 	InOrder(r);
 	printf("\n");
+	printf("后序：\n");
 	PostOrder(r);
 	printf("\n");
 	system("pause");

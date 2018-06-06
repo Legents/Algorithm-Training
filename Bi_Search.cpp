@@ -3,22 +3,22 @@
 typedef struct Node {
 	int list[100];
 	int length;
-}Node, Sqlist;
-void InitList(Sqlist *L) {
+}Node,Sqlist;
+ void InitList(Sqlist *L) {
 	L->length = -1;
 }
-int Bi_Search(Sqlist *L, int low, int high, int data) {
-	if (high >= low) {
-		int mid = (low + high) / 2;
-		if (data == L->list[mid])
-			return mid;
-		else if (data<L->list[mid])
-			return Bi_Search(L, low, mid - 1, data);
-		else if (data>L->list[mid])
-			return Bi_Search(L, mid + 1, high, data);
-	}
-	else
-		return -1;
+ int Bi_Search(Sqlist *L, int low, int high,int data) {
+	 if (high >= low) {
+		 int mid = (low+high)/2;
+		 if(data==L->list[mid])
+		 	return mid;
+		else if(data<L->list[mid])
+			return Bi_Search(L,low,mid-1,data);
+		else if(data>L->list[mid])
+			return Bi_Search(L,mid+1,high,data);
+	 }
+	 else 
+		 return -1; 
 }
 int main() {
 	Sqlist L;
@@ -42,3 +42,4 @@ int main() {
 	system("pause");
 	return 0;
 }
+

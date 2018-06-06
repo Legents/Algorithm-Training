@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h> 
 #define LISTSIZE 100
 typedef struct{
     int items[LISTSIZE];
@@ -12,7 +13,7 @@ int main()
 {
     SqList L;
     int x;
-    printf("请选择：\n 1:初始化链表\n 2:插入元素\n 3:删除元素\n 0:退出\n");
+    printf("请选择：\n 1:初始化顺序表\n 2:插入元素\n 3:删除元素\n 0:退出\n");
     while(scanf("%d",&x)&&x!=0){
     	switch(x){
 		case 1: InitList(&L);

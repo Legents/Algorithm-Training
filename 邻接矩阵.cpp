@@ -11,7 +11,6 @@ PGraph Creat_G() {
 	printf("请输入点和边的个数：\n");
 	scanf("%d%d", &G->v, &G->e);
 	int i, j;
-	printf("请输入点：\n");
 	for (i = 0; i < G->v; i++)//将每个点的名称默认置为序号
 		G->vex[i] = i;
 	for(i = 0; i < G->v; i++)
@@ -52,15 +51,14 @@ void BFS(PGraph G, int k,int visited[]) {
 	}
 }
 void DFS(PGraph G, int k, int visited[]) {
-	
 	visited[k] = 1;
+	printf("%3d", k);
 	int j;
 	for (j = 0; j < G->v; j++) {
 		if (G->arcs[k][j] == 1 && (!visited[j])) {
 			DFS(G, j, visited);
 		}
 	}
-	printf("%3d", k);
 }
 void print(PGraph G) {//输出邻接矩阵
 	int i, j;

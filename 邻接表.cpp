@@ -28,7 +28,6 @@ Adjlist Creat_G() {
 	Adjlist G=(Adjlist)malloc(sizeof(VGraph));
 	printf("请输入顶点数目和边的数目：\n");
 	scanf("%d%d", &G->v,&G->e);
-	printf("请分别输入每个顶点的值：\n");
 	for (i = 0; i < G->v; i++) {//顶点表的初始化,顶点的值默认设置为序号的值
 		G->list[i].data=i;
 		G->list[i].h = NULL;
