@@ -58,6 +58,76 @@ void PostOrder(BiTreeLink q) {//后序遍历
 		printf("%d ", q->data);
 	}
 }
+void del(BiTreeLink root,int num) {
+	PBTNode del_node = root;
+	PBTNode par_of_del_node = NULL;
+	PBTNode sub_node, par_of_sub_node;
+	//寻找要删除的节点及其双亲节点
+	while (del_node != NULL && num != del_node->data) {
+		par_of_del_node = del_node;
+		if (del_node->data > num)
+			del_node = del_node->left;
+		else
+			del_node = del_node->right;
+	}
+	if (del_node == NULL)
+	{
+		printf("faild!\n");
+		return;
+	}
+	//删除叶子节点
+	if (del_node->left == NULL && del_node->right == NULL) {
+		//删除的节点为根
+		if (par_of_del_node == NULL)
+			root = NULL;
+		else if (par_of_del_node->left == del_node)
+			par_of_del_node->left = NULL;
+		else
+			par_of_del_node->right = NULL;
+		free(del_node);
+	}
+	//删除的节点有左子树
+	else if (del_node->left != NULL && del_node->right == NULL) {
+		//删除的节点为根节点
+		if (par_of_del_node == NULL)
+			root = del_node->left;
+		else if (par_of_del_node->right == del_node)
+			par_of_del_node->right = del_node->left;
+		else
+			par_of_del_node->left = del_node->left;
+		free(del_node);
+	}
+	//删除的节点有右子树
+	else if (del_node->left == NULL && del_node->right != NULL) {
+		//删除的节点为根节点
+		if (par_of_del_node == NULL)
+			root = del_node->right;
+		else if (par_of_del_node->right == del_node)
+			par_of_del_node->right = del_node->right;
+		else
+			par_of_del_node->left = del_node->right;
+		free(del_node);
+	}
+	//删除的节点既有左子树又有右子树
+	else {
+		par_of_sub_node = del_node;
+		sub_node = del_node->left;
+		//寻找替代节点和双亲节点
+		while (sub_node->right != NULL) {
+			par_of_sub_node = sub_node;
+			sub_node = sub_node->right;
+		}
+		//删除节点为根节点
+		if (par_of_del_node == NULL) {
+			root = sub_node;
+		}
+		else if (par_of_del_node->left == del_node)
+			par_of_del_node->left = sub_node;
+		else
+			par_of_del_node->right = sub_node;
+		sub_node->right = del_node->right;
+	}
+}
 int main() {
 	int datas[10] = { 40,20,13,56,84,46,32,47,20,65 }, i;
 	PBTNode root = (PBTNode)malloc(sizeof(BTNode));
@@ -71,12 +141,19 @@ int main() {
 	printf("\n后序：\n");
 	PostOrder(root);
 	int s;
-	printf("\n输入要查找的元素：\n");
+	/*printf("\n输入要查找的元素：\n");
 	scanf("%d", &s);
 	if (Bi_Search(root,s))
 		printf("查找成功\n");
 	else
-		printf("查找失败\n");
+		printf("查找失败\n");*/
+	printf("输入要删除的节点:\n");
+	scanf("%d", &s);
+	del(root, s);
+	printf("中序：\n");
+	InOrder(root);
+	printf("\n后序：\n");
+	PostOrder(root);
 	system("pause");
 	return 0;
 }
