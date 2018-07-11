@@ -117,19 +117,37 @@ void del(BiTreeLink root,int num) {
 			par_of_sub_node = sub_node;
 			sub_node = sub_node->right;
 		}
-		//删除节点为根节点
-		if (par_of_del_node == NULL) {
-			root = sub_node;
+		
+		if (par_of_sub_node != del_node) {
+			sub_node->right = del_node->right;
+			sub_node->left = del_node->left;
+			par_of_sub_node->right = NULL;
+			//删除节点为根节点
+			if (par_of_del_node == NULL) {
+				root->data = sub_node->data;
+			}
+			else {
+				if (par_of_del_node->left == del_node)
+					par_of_del_node->left = sub_node;
+				else
+					par_of_del_node->right = sub_node;
+			}
 		}
-		else if (par_of_del_node->left == del_node)
-			par_of_del_node->left = sub_node;
+		
+		if (par_of_sub_node == del_node) {
+			del_node->data = sub_node->data;
+			if (par_of_sub_node->right == sub_node)
+				del_node->right = NULL;
+			else
+				del_node->left = NULL;
+		}
 		else
-			par_of_del_node->right = sub_node;
-		sub_node->right = del_node->right;
+			par_of_sub_node->right = NULL;
+		free(sub_node);
 	}
 }
 int main() {
-	int datas[10] = { 40,20,13,56,84,46,32,47,20,65 }, i;
+	int datas[10] = { 2,1,3,4,5,6,7,8,9,10 }, i;
 	PBTNode root = (PBTNode)malloc(sizeof(BTNode));
 	root->data = datas[0];
 	root->left = root->right = NULL;
